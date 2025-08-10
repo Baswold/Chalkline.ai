@@ -1,0 +1,308 @@
+{
+  "rubrics": [
+    {
+      "id": "rubric-math-001",
+      "title": "Quadratic Equations Rubric",
+      "subject": "Mathematics",
+      "criteria": [
+        {
+          "id": "problem-setup",
+          "description": "Problem Setup and Understanding",
+          "weight": 0.2,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "Clearly identifies the problem type, shows complete understanding of what is being asked"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Identifies problem type with minor confusion, mostly understands what is being asked"
+            },
+            {
+              "label": "Satisfactory",
+              "points": 2,
+              "description": "Some understanding of problem type, partially understands what is being asked"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Limited understanding of problem type or what is being asked"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "No clear understanding of problem type or what is being asked"
+            }
+          ]
+        },
+        {
+          "id": "method-selection",
+          "description": "Method Selection and Application",
+          "weight": 0.3,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "Selects most appropriate method, applies it correctly and efficiently"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Selects appropriate method, applies it correctly with minor errors"
+            },
+            {
+              "label": "Satisfactory",
+              "points": 2,
+              "description": "Selects workable method, applies it with some errors or inefficiency"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Selects inappropriate method or applies method with major errors"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "No clear method selected or completely incorrect application"
+            }
+          ]
+        },
+        {
+          "id": "calculations",
+          "description": "Mathematical Calculations",
+          "weight": 0.25,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "All calculations are accurate and clearly shown"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Most calculations accurate with minor computational errors"
+            },
+            {
+              "label": "Satisfactory", 
+              "points": 2,
+              "description": "Some calculation errors but approach is sound"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Multiple calculation errors that affect the solution"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "Calculations are largely incorrect or missing"
+            }
+          ]
+        },
+        {
+          "id": "explanation",
+          "description": "Explanation and Communication",
+          "weight": 0.15,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "Clear, detailed explanations of reasoning and steps"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Good explanations with minor gaps in reasoning"
+            },
+            {
+              "label": "Satisfactory",
+              "points": 2,
+              "description": "Basic explanations, some steps explained"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Limited explanations, difficult to follow reasoning"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "No explanations or completely unclear reasoning"
+            }
+          ]
+        },
+        {
+          "id": "final-answer",
+          "description": "Final Answer and Verification",
+          "weight": 0.1,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "Correct final answer with verification or check"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Correct final answer, clearly stated"
+            },
+            {
+              "label": "Satisfactory",
+              "points": 2,
+              "description": "Answer is close or contains minor errors"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Incorrect answer due to errors in process"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "No final answer or completely incorrect"
+            }
+          ]
+        }
+      ],
+      "totalPoints": 20
+    },
+    {
+      "id": "rubric-history-001",
+      "title": "Historical Analysis Rubric",
+      "subject": "History",
+      "criteria": [
+        {
+          "id": "thesis-argument",
+          "description": "Thesis and Main Argument",
+          "weight": 0.25,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "Clear, sophisticated thesis with compelling argument"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Clear thesis with solid argument"
+            },
+            {
+              "label": "Satisfactory",
+              "points": 2,
+              "description": "Basic thesis, argument needs development"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Weak thesis, unclear argument"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "No clear thesis or argument"
+            }
+          ]
+        },
+        {
+          "id": "evidence-support",
+          "description": "Use of Evidence and Sources",
+          "weight": 0.3,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "Comprehensive use of relevant, credible sources with proper analysis"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Good use of relevant sources with analysis"
+            },
+            {
+              "label": "Satisfactory",
+              "points": 2,
+              "description": "Adequate sources but limited analysis"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Few or questionable sources, minimal analysis"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "No credible sources or analysis"
+            }
+          ]
+        },
+        {
+          "id": "historical-context",
+          "description": "Historical Context and Understanding",
+          "weight": 0.25,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "Demonstrates sophisticated understanding of historical context"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Shows good understanding of historical context"
+            },
+            {
+              "label": "Satisfactory",
+              "points": 2,
+              "description": "Basic understanding of historical context"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Limited understanding of historical context"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "No understanding of historical context"
+            }
+          ]
+        },
+        {
+          "id": "writing-organization",
+          "description": "Writing and Organization",
+          "weight": 0.2,
+          "levels": [
+            {
+              "label": "Excellent",
+              "points": 4,
+              "description": "Clear, well-organized writing with excellent flow"
+            },
+            {
+              "label": "Good",
+              "points": 3,
+              "description": "Well-organized with good writing quality"
+            },
+            {
+              "label": "Satisfactory",
+              "points": 2,
+              "description": "Adequate organization and writing"
+            },
+            {
+              "label": "Needs Improvement",
+              "points": 1,
+              "description": "Poor organization or writing quality"
+            },
+            {
+              "label": "Inadequate",
+              "points": 0,
+              "description": "Very poor organization and writing"
+            }
+          ]
+        }
+      ],
+      "totalPoints": 16
+    }
+  ]
+}

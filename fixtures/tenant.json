@@ -1,0 +1,129 @@
+{
+  "tenants": [
+    {
+      "id": "oakwood-high",
+      "name": "Oakwood High School",
+      "domain": "oakwood.edu",
+      "plan": "premium",
+      "settings": {
+        "maxStudentsPerClass": 35,
+        "allowedModels": ["gpt-4", "claude-3-sonnet"],
+        "defaultModel": "claude-3-sonnet",
+        "features": {
+          "voiceInput": true,
+          "imageGeneration": true,
+          "advancedAnalytics": true,
+          "customRubrics": true
+        }
+      },
+      "budget": {
+        "monthlyTokenLimit": 1000000,
+        "currentUsage": 245000,
+        "costPerToken": 0.00001,
+        "resetDate": "2025-09-01"
+      },
+      "integrations": {
+        "googleClassroom": {
+          "enabled": true,
+          "clientId": "123456789-abcdef.apps.googleusercontent.com",
+          "domains": ["oakwood.edu"]
+        },
+        "microsoftTeams": {
+          "enabled": false
+        },
+        "canvas": {
+          "enabled": true,
+          "apiUrl": "https://oakwood.instructure.com/api/v1"
+        }
+      },
+      "privacy": {
+        "dataRetentionDays": 365,
+        "allowResearchParticipation": false,
+        "requireParentalConsent": true,
+        "region": "us-east-1"
+      }
+    },
+    {
+      "id": "riverside-elem",
+      "name": "Riverside Elementary School", 
+      "domain": "riverside.k12.ca.us",
+      "plan": "basic",
+      "settings": {
+        "maxStudentsPerClass": 30,
+        "allowedModels": ["gpt-3.5-turbo"],
+        "defaultModel": "gpt-3.5-turbo",
+        "features": {
+          "voiceInput": false,
+          "imageGeneration": false,
+          "advancedAnalytics": false,
+          "customRubrics": false
+        }
+      },
+      "budget": {
+        "monthlyTokenLimit": 500000,
+        "currentUsage": 123000,
+        "costPerToken": 0.000005,
+        "resetDate": "2025-09-01"
+      },
+      "integrations": {
+        "googleClassroom": {
+          "enabled": true,
+          "clientId": "987654321-fedcba.apps.googleusercontent.com",
+          "domains": ["riverside.k12.ca.us"]
+        }
+      },
+      "privacy": {
+        "dataRetentionDays": 180,
+        "allowResearchParticipation": false,
+        "requireParentalConsent": true,
+        "region": "us-west-2"
+      }
+    }
+  ],
+  "plans": [
+    {
+      "id": "basic",
+      "name": "Basic Plan",
+      "monthlyPrice": 199,
+      "features": {
+        "maxTokens": 500000,
+        "models": ["gpt-3.5-turbo"],
+        "advancedAnalytics": false,
+        "customRubrics": false,
+        "voiceInput": false,
+        "imageGeneration": false,
+        "prioritySupport": false
+      }
+    },
+    {
+      "id": "premium",
+      "name": "Premium Plan",
+      "monthlyPrice": 499,
+      "features": {
+        "maxTokens": 1000000,
+        "models": ["gpt-4", "claude-3-sonnet", "gpt-3.5-turbo"],
+        "advancedAnalytics": true,
+        "customRubrics": true,
+        "voiceInput": true,
+        "imageGeneration": true,
+        "prioritySupport": true
+      }
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise Plan",
+      "monthlyPrice": 999,
+      "features": {
+        "maxTokens": "unlimited",
+        "models": ["all"],
+        "advancedAnalytics": true,
+        "customRubrics": true,
+        "voiceInput": true,
+        "imageGeneration": true,
+        "prioritySupport": true,
+        "customIntegrations": true,
+        "dedicatedSupport": true
+      }
+    }
+  ]
+}

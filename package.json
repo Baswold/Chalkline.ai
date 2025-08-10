@@ -1,0 +1,26 @@
+{
+  "name": "chalkline-ai",
+  "version": "1.0.0",
+  "description": "Revolutionary AI-powered educational platform",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter studio dev\" \"pnpm --filter gateway dev\"",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.0",
+    "vitest": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@chalkline/grader",
+  "version": "1.0.0",
+  "description": "Rubric-based grading engine for Chalkline.AI",
+  "main": "dist/index.js",
+  "bin": {
+    "chalkline-grader": "dist/cli.js"
+  },
+  "scripts": {
+    "dev": "tsx watch src/cli.ts",
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@chalkline/policy": "workspace:*",
+    "commander": "^11.1.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0"
+  }
+}
