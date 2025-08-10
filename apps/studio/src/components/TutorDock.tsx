@@ -37,19 +37,19 @@ const TutorDock: React.FC<TutorDockProps> = ({
       case 'TRY_FIRST':
         return {
           className: 'try-first',
-          text: '🤔 Please attempt the problem first, then I can provide hints!',
+          text: 'Please attempt the problem first, then I can provide hints!',
           description: 'Make your best effort at solving the problem before asking for help.'
         };
       case 'HINTS_ONLY':
         return {
           className: 'hints-only',
-          text: '💡 Great! Now I can provide hints and guidance.',
+          text: 'Great! Now I can provide hints and guidance.',
           description: 'I can offer hints, explanations, and point you toward resources.'
         };
       case 'NORM_CHAT':
         return {
           className: 'normal-chat',
-          text: '💬 Ask me anything about the topic!',
+          text: 'Ask me anything about the topic!',
           description: 'Feel free to ask general questions not directly related to the assignment.'
         };
     }
@@ -128,7 +128,7 @@ const TutorDock: React.FC<TutorDockProps> = ({
   return (
     <div className="tutor-dock">
       <div className="tutor-header">
-        <span>🤖 AI Tutor</span>
+        <span>AI Tutor</span>
         {activeAssignment && (
           <small> - {activeAssignment.subject}</small>
         )}
@@ -147,7 +147,7 @@ const TutorDock: React.FC<TutorDockProps> = ({
           >
             <div className="message-header">
               <span className="message-author">
-                {message.type === 'user' ? '👤 You' : '🤖 AI Tutor'}
+                {message.type === 'user' ? 'You' : 'AI Tutor'}
               </span>
               <span className="message-time">
                 {message.timestamp.toLocaleTimeString([], { 
@@ -170,7 +170,7 @@ const TutorDock: React.FC<TutorDockProps> = ({
         {isLoading && (
           <div className="message assistant loading">
             <div className="message-header">
-              <span className="message-author">🤖 AI Tutor</span>
+              <span className="message-author">AI Tutor</span>
             </div>
             <div className="message-content">
               <div className="typing-indicator">
@@ -208,12 +208,12 @@ const TutorDock: React.FC<TutorDockProps> = ({
           disabled={!inputValue.trim() || isLoading}
           aria-label="Send message"
         >
-          {isLoading ? '⏳' : '📤'} Send
+          {isLoading ? 'Sending...' : 'Send'}
         </button>
         
         <div className="tutor-hints">
           <small>
-            💡 <strong>Tip:</strong> I provide better help when you show your work first!
+            <strong>Tip:</strong> I provide better help when you show your work first!
           </small>
         </div>
       </div>

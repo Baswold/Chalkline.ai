@@ -5,17 +5,17 @@ const Timeline: React.FC<TimelineProps> = ({ events, activeAssignment }) => {
   const getEventIcon = (eventType: string) => {
     switch (eventType) {
       case 'assignment-opened':
-        return '📖';
+        return '▤';
       case 'submission':
-        return '✍️';
+        return '▣';
       case 'hint-given':
-        return '💡';
+        return '○';
       case 'tab-switch':
-        return '🔄';
+        return '▷';
       case 'rubric-tick':
-        return '✅';
+        return '●';
       default:
-        return '📌';
+        return '▫';
     }
   };
 
@@ -140,12 +140,12 @@ const Timeline: React.FC<TimelineProps> = ({ events, activeAssignment }) => {
           <div className="timeline-empty">
             {activeAssignment ? (
               <div className="empty-state-timeline">
-                <span>📝</span>
+                <span>▣</span>
                 <p>Your session timeline will appear here as you work</p>
               </div>
             ) : (
               <div className="empty-state-timeline">
-                <span>🎯</span>
+                <span>▤</span>
                 <p>Select an assignment to see your progress timeline</p>
               </div>
             )}
@@ -156,7 +156,7 @@ const Timeline: React.FC<TimelineProps> = ({ events, activeAssignment }) => {
       {activeAssignment && (
         <div className="timeline-footer">
           <small className="timeline-help">
-            💡 Your learning journey is tracked here - submissions, hints, and progress milestones.
+            Your learning journey is tracked here - submissions, hints, and progress milestones.
           </small>
         </div>
       )}

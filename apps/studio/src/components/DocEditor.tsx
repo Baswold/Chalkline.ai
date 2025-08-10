@@ -12,6 +12,7 @@ const DocEditor: React.FC<DocEditorProps> = ({
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
 
   const editor = useEditor({
     extensions: [
@@ -122,35 +123,25 @@ const DocEditor: React.FC<DocEditorProps> = ({
 
   return (
     <div className="doc-editor">
-      <div className="doc-header">
-        <div className="assignment-info">
-          <h2>{assignment.title}</h2>
-          <p className="assignment-description">{assignment.description}</p>
-        </div>
-        
-        <div className="question-nav">
-          <label htmlFor="question-select">Question:</label>
-          <select
-            id="question-select"
-            value={currentQuestion}
-            onChange={(e) => handleQuestionChange(parseInt(e.target.value))}
-            className="question-select"
-          >
-            {assignment.questions.map((question, index) => (
-              <option key={index} value={index}>
-                {index + 1}. {question.substring(0, 50)}...
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
 
       <div className="current-question">
         <div className="question-header">
-          <h3>Question {currentQuestion + 1} of {assignment.questions.length}</h3>
-          {isCurrentQuestionAnswered() && (
-            <span className="answered-indicator">✅ Answered</span>
-          )}
+          <div className="question-nav-inline">
+            <select
+              value={currentQuestion}
+              onChange={(e) => handleQuestionChange(parseInt(e.target.value))}
+              className="question-select-inline"
+            >
+              {assignment.questions.map((question, index) => (
+                <option key={index} value={index}>
+                  Question {index + 1}
+                </option>
+              ))}
+            </select>
+            {isCurrentQuestionAnswered() && (
+              <span className="answered-indicator">✓ Answered</span>
+            )}
+          </div>
         </div>
         <div className="question-text">
           {assignment.questions[currentQuestion]}

@@ -12,9 +12,9 @@ const WorkArea: React.FC<WorkAreaProps> = ({
   submissions
 }) => {
   const tabs: Array<{ key: WorkTab; label: string; icon: string }> = [
-    { key: 'DOC', label: 'Document', icon: '📄' },
-    { key: 'PDF', label: 'PDF', icon: '📋' },
-    { key: 'BOARD', label: 'Whiteboard', icon: '🎨' }
+    { key: 'DOC', label: 'Document', icon: '▤' },
+    { key: 'PDF', label: 'PDF', icon: '▦' },
+    { key: 'BOARD', label: 'Whiteboard', icon: '▧' }
   ];
 
   const handleTabClick = (tab: WorkTab) => {
@@ -76,26 +76,7 @@ const WorkArea: React.FC<WorkAreaProps> = ({
       </div>
       
       <div className="work-content" role="tabpanel">
-        {activeAssignment ? (
-          renderTabContent()
-        ) : (
-          <div className="no-assignment-selected">
-            <div className="empty-state">
-              <h3>Select an Assignment</h3>
-              <p>Choose an assignment from the left panel to begin working.</p>
-              <div className="getting-started">
-                <h4>Getting Started:</h4>
-                <ol>
-                  <li>Select an assignment from the Assignment Tray</li>
-                  <li>Choose your preferred work mode (Document, PDF, or Whiteboard)</li>
-                  <li>Read the assignment questions carefully</li>
-                  <li>Make your first attempt at solving the problems</li>
-                  <li>Use the AI Tutor for hints and guidance when needed</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        )}
+        {renderTabContent()}
       </div>
     </div>
   );
