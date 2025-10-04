@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Logger setup
-const logger = winston.createLogger({
+export const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
     winston.format.timestamp(),
@@ -58,16 +58,16 @@ type LLMRequest = z.infer<typeof LLMRequestSchema>;
 type TenantRequest = z.infer<typeof TenantRequestSchema>;
 
 // In-memory stores (would use Redis/Database in production)
-const tenantBudgets = new Map<string, {
+export const tenantBudgets = new Map<string, {
   monthlyLimit: number;
   currentUsage: number;
   resetDate: string;
 }>();
 
-const tenantConfigs = new Map<string, any>();
+export const tenantConfigs = new Map<string, any>();
 
 // Load tenant configurations on startup
-async function loadTenantConfigs() {
+export async function loadTenantConfigs() {
   try {
     const fixturesPath = path.join(__dirname, '../../../fixtures/tenant.json');
     const data = await fs.readFile(fixturesPath, 'utf-8');
@@ -89,7 +89,7 @@ async function loadTenantConfigs() {
 }
 
 // Policy check function
-function policyCheck(prompt: string, tenantId: string): { allowed: boolean; reason?: string } {
+export function policyCheck(prompt: string, tenantId: string): { allowed: boolean; reason?: string } {
   const tenant = tenantConfigs.get(tenantId);
   if (!tenant) {
     return { allowed: false, reason: 'Unknown tenant' };
@@ -129,7 +129,7 @@ function policyCheck(prompt: string, tenantId: string): { allowed: boolean; reas
 }
 
 // Check tenant budget
-function checkTenantBudget(tenantId: string, estimatedTokens: number = 100): { allowed: boolean; reason?: string } {
+export function checkTenantBudget(tenantId: string, estimatedTokens: number = 100): { allowed: boolean; reason?: string } {
   const budget = tenantBudgets.get(tenantId);
   if (!budget) {
     return { allowed: false, reason: 'Tenant budget not found' };
@@ -143,7 +143,7 @@ function checkTenantBudget(tenantId: string, estimatedTokens: number = 100): { a
 }
 
 // Mock LLM provider (would integrate with actual providers)
-async function callLLMProvider(request: LLMRequest & { allowed: boolean }): Promise<{
+export async function callLLMProvider(request: LLMRequest & { allowed: boolean }): Promise<{
   content: string;
   tokensUsed: number;
   model: string;
@@ -178,7 +178,7 @@ async function callLLMProvider(request: LLMRequest & { allowed: boolean }): Prom
 }
 
 // Update tenant usage
-function updateTenantUsage(tenantId: string, tokensUsed: number) {
+export function updateTenantUsage(tenantId: string, tokensUsed: number) {
   const budget = tenantBudgets.get(tenantId);
   if (budget) {
     budget.currentUsage += tokensUsed;
@@ -357,7 +357,7 @@ app.post('/v1/tenant/:tenantId/reset-budget', async (req, res) => {
 });
 
 // Start server
-async function startServer() {
+export async function startServer() {
   await loadTenantConfigs();
   
   app.listen(port, () => {
@@ -367,9 +367,11 @@ async function startServer() {
   });
 }
 
-startServer().catch((error) => {
-  logger.error('Failed to start server:', error);
-  process.exit(1);
-});
+if (process.env.NODE_ENV !== 'test') {
+  startServer().catch((error) => {
+    logger.error('Failed to start server:', error);
+    process.exit(1);
+  });
+}
 
 export default app;

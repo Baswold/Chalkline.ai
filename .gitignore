@@ -1,0 +1,28 @@
+# Dependency directories
+node_modules/
+
+# Build output
+apps/**/dist/
+packages/**/dist/
+
+# Environment and secret files
+.env
+.env.*
+*.env
+*.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Local configuration
+*.local
+*.cache
+.DS_Store
+
+# Logs
+logs/
+*.log
+

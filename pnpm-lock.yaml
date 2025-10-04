@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@rollup/rollup-linux-x64-gnu':
+        specifier: ^4.52.3
+        version: 4.52.3
       '@types/node':
         specifier: ^20.11.0
         version: 20.19.10
@@ -849,6 +852,11 @@ packages:
 
   '@rollup/rollup-linux-x64-gnu@4.46.2':
     resolution: {integrity: sha512-Jj5a9RUoe5ra+MEyERkDKLwTXVu6s3aACP51nkfnK9wJTraCC8IMe3snOfALkrjTYd2G1ViE1hICj0fZ7ALBPA==}
+    cpu: [x64]
+    os: [linux]
+
+  '@rollup/rollup-linux-x64-gnu@4.52.3':
+    resolution: {integrity: sha512-tPgGd6bY2M2LJTA1uGq8fkSPK8ZLYjDjY+ZLK9WHncCnfIz29LIXIqUgzCR0hIefzy6Hpbe8Th5WOSwTM8E7LA==}
     cpu: [x64]
     os: [linux]
 
@@ -3471,6 +3479,8 @@ snapshots:
 
   '@rollup/rollup-linux-x64-gnu@4.46.2':
     optional: true
+
+  '@rollup/rollup-linux-x64-gnu@4.52.3': {}
 
   '@rollup/rollup-linux-x64-musl@4.46.2':
     optional: true

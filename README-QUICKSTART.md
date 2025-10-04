@@ -78,6 +78,8 @@ The development setup works with defaults, but these env vars are recognized by 
 
 Gateway also loads fixtures from fixtures/tenant.json at startup.
 
+> 🔐 **Security Tip**: Create a local `.env` file for credentials such as `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` and never commit it. Secrets and certificate files are ignored by git via the root `.gitignore`.
+
 ## API (Gateway)
 Base URL: http://localhost:3001
 

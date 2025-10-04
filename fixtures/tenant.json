@@ -25,7 +25,7 @@
       "integrations": {
         "googleClassroom": {
           "enabled": true,
-          "clientId": "123456789-abcdef.apps.googleusercontent.com",
+          "clientId": "REPLACE_WITH_GOOGLE_OAUTH_CLIENT_ID",
           "domains": ["oakwood.edu"]
         },
         "microsoftTeams": {
@@ -68,7 +68,7 @@
       "integrations": {
         "googleClassroom": {
           "enabled": true,
-          "clientId": "987654321-fedcba.apps.googleusercontent.com",
+          "clientId": "REPLACE_WITH_GOOGLE_OAUTH_CLIENT_ID",
           "domains": ["riverside.k12.ca.us"]
         }
       },
