@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/modern-layout.css';
 import AssignmentTray from './components/AssignmentTray';
 import WorkArea from './components/WorkArea';
-import TutorDock from './components/TutorDock';
+import ChatWidget from './components/ChatWidget';
 import Timeline from './components/Timeline';
 import { assignmentsData } from './data/exampleData';
 import type { Assignment, WorkTab, AppState } from './types';
@@ -134,7 +134,7 @@ function App() {
         submissions={state.submissions}
       />
 
-      <TutorDock
+      <ChatWidget
         mode={state.tutorMode}
         activeAssignment={state.activeAssignment}
         submissions={state.submissions}

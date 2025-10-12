@@ -16,11 +16,11 @@ body {
 .layout {
   display: grid;
   grid-template-rows: 48px 1fr 120px;
-  grid-template-columns: 280px 1fr 360px;
+  grid-template-columns: 280px 1fr;
   grid-template-areas:
-    "header header header"
-    "tray work tutor"
-    "timeline timeline tutor";
+    "header header"
+    "tray work"
+    "timeline timeline";
   height: 100vh;
   background: #ffffff;
   overflow: hidden;
@@ -166,7 +166,7 @@ body {
 
 .work-content {
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
   position: relative;
 }
 
@@ -329,7 +329,7 @@ body {
 /* Responsive design */
 @media (max-width: 1200px) {
   .layout {
-    grid-template-columns: 240px 1fr 300px;
+    grid-template-columns: 240px 1fr;
   }
 }
 
@@ -610,7 +610,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .doc-editor-empty {
@@ -836,7 +836,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .pdf-header,
@@ -887,6 +887,56 @@ body {
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
+}
+
+/* Floating AI chat widget */
+.chat-widget {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 320px;
+  height: 400px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  resize: both;
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-widget .tutor-dock {
+  display: flex !important;
+  height: 100%;
+  width: 100%;
+  border-left: none;
+}
+
+.chat-widget-close {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.chat-widget-toggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .feature-icon {

@@ -103,11 +103,11 @@ body {
 .layout {
   display: grid;
   grid-template-rows: 64px 1fr 140px;
-  grid-template-columns: 320px 1fr 400px;
+  grid-template-columns: 320px 1fr;
   grid-template-areas:
-    "header header header"
-    "tray work tutor"
-    "timeline timeline tutor";
+    "header header"
+    "tray work"
+    "timeline timeline";
   height: 100vh;
   background: var(--gray-100);
   overflow: hidden;
@@ -450,7 +450,7 @@ body {
 
 .work-content {
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
   position: relative;
   background: #ffffff;
 }
@@ -771,7 +771,7 @@ body {
   
   /* Legacy layout styles */  
   .layout {
-    grid-template-columns: 280px 1fr 350px;
+    grid-template-columns: 280px 1fr;
   }
 }
 
@@ -788,7 +788,7 @@ body {
   
   /* Legacy layout styles */
   .layout {
-    grid-template-columns: 260px 1fr 320px;
+    grid-template-columns: 260px 1fr;
   }
   
   :root {
@@ -1018,7 +1018,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .doc-editor-empty {
@@ -1371,7 +1371,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .pdf-header,
@@ -1519,6 +1519,56 @@ body {
   border-color: var(--blue-500);
   background: var(--blue-50);
   color: var(--blue-700);
+}
+
+/* Floating AI chat widget */
+.chat-widget {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 320px;
+  height: 400px;
+  background: #ffffff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  resize: both;
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-widget .tutor-dock {
+  display: flex !important;
+  height: 100%;
+  width: 100%;
+  border-left: none;
+}
+
+.chat-widget-close {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.chat-widget-toggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: var(--blue-500);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
 }
 
 /* Print styles */
