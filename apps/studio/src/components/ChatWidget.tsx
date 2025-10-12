@@ -5,27 +5,31 @@ import type { TutorDockProps } from '../types';
 const ChatWidget: React.FC<TutorDockProps> = (props) => {
   const [open, setOpen] = useState(false);
 
-  if (!open) {
-    return (
-      <button
-        className="chat-widget-toggle"
-        onClick={() => setOpen(true)}
-      >
-        AI Chat
-      </button>
-    );
-  }
-
   return (
     <div className="chat-widget">
-      <button
-        className="chat-widget-close"
-        onClick={() => setOpen(false)}
-        aria-label="Close chat"
+      {open ? (
+        <button
+          className="chat-widget-close"
+          onClick={() => setOpen(false)}
+          aria-label="Close chat"
+        >
+          ×
+        </button>
+      ) : (
+        <button
+          className="chat-widget-toggle"
+          onClick={() => setOpen(true)}
+        >
+          AI Chat
+        </button>
+      )}
+      <div
+        className="chat-widget-body"
+        style={{ display: open ? 'block' : 'none' }}
+        aria-hidden={!open}
       >
-        ×
-      </button>
-      <TutorDock {...props} />
+        <TutorDock {...props} />
+      </div>
     </div>
   );
 };
