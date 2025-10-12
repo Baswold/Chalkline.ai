@@ -124,6 +124,13 @@ pnpm --filter gateway dev     # LLM Gateway only
 pnpm --filter policy build    # Policy package only
 ```
 
+## 🔐 API Key & Secret Management
+
+- **Never commit secrets** – `.gitignore` now blocks `.env`, `*.key`, certificates, and other secret-bearing files from version control.
+- **Use environment variables** – create a local `.env` (or `.env.local`) that defines `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, and any other provider credentials without checking them into git.
+- **Backend-only access** – load provider keys exclusively inside secure backend services (e.g., the Gateway). Frontend code should call backend proxies instead of embedding secrets in the browser bundle.
+- **Rotate placeholders** – sample fixtures such as `fixtures/tenant.json` use placeholder values so no real OAuth client IDs or API keys are exposed in the repository. Replace them with real values only in protected deployment environments.
+
 ## 📚 Core Features Demo
 
 ### 1. AI Policy System
