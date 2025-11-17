@@ -55,6 +55,42 @@ const TutorDock: React.FC<TutorDockProps> = ({
     }
   };
 
+  const callGatewayAPI = async (userMessage: string): Promise<string> => {
+    try {
+      const gatewayUrl = import.meta.env.VITE_GATEWAY_URL || 'http://localhost:3001';
+
+      const response = await fetch(`${gatewayUrl}/v1/llm`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          tenantId: 'oakwood-high', // Should come from auth context in production
+          prompt: userMessage,
+          model: 'claude-3-sonnet',
+          maxTokens: 1000,
+          temperature: 0.7,
+          context: {
+            assignmentId: activeAssignment?.id,
+            submissionId: submissions.length > 0 ? submissions[submissions.length - 1].id : undefined,
+            sessionId: `session-${Date.now()}`
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Gateway responded with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.content || "I'm having trouble responding right now. Please try again.";
+    } catch (error) {
+      console.error('Error calling Gateway API:', error);
+      // Fallback to mock response
+      return generateMockResponse(userMessage);
+    }
+  };
+
   const generateMockResponse = (userMessage: string): string => {
     if (!activeAssignment) {
       return "Hi there! Please select an assignment first, and I'll be happy to help you with it.";
@@ -97,23 +133,37 @@ const TutorDock: React.FC<TutorDockProps> = ({
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const messageContent = inputValue.trim();
     setInputValue('');
     setIsLoading(true);
 
-    // Simulate API call delay
-    setTimeout(() => {
+    try {
+      // Call the actual Gateway API
+      const responseContent = await callGatewayAPI(messageContent);
+
       const assistantResponse: TutorMessage = {
         id: `assistant-${Date.now()}`,
         type: 'assistant',
-        content: generateMockResponse(inputValue.trim()),
+        content: responseContent,
         timestamp: new Date(),
         mode
       };
 
       setMessages(prev => [...prev, assistantResponse]);
+      onInteraction(messageContent);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      const errorResponse: TutorMessage = {
+        id: `assistant-${Date.now()}`,
+        type: 'assistant',
+        content: "I'm having trouble connecting to the AI service right now. Please try again in a moment.",
+        timestamp: new Date(),
+        mode
+      };
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
       setIsLoading(false);
-      onInteraction(inputValue.trim());
-    }, 1000 + Math.random() * 2000);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {

@@ -68,10 +68,158 @@ export function isAskingForAnswer(userMsg: string): boolean {
     /\b(answer|solve|what's.*answer|final.*answer|solution)\b/i,
     /\b(tell me the|give me the|show me the).*answer\b/i,
     /\b(what is|what are).*answer/i,
-    /\bhow to (solve|do) this/i
+    /\bhow to (solve|do) this/i,
+    /\b(just|simply) (tell|give|show) me\b/i,
+    /\b(write|do|complete) (it|this|that) for me\b/i,
+    /\bstep[- ]by[- ]step solution\b/i,
+    /\b(entire|whole|complete) answer\b/i,
+    /\b(quick|fast|easy) (way|answer|solution)\b/i
   ];
-  
+
   return answerPatterns.some(pattern => pattern.test(userMsg));
+}
+
+/**
+ * Checks if a user message is attempting to bypass the AI policy
+ */
+export function isPolicyBypassAttempt(userMsg: string): boolean {
+  const bypassPatterns = [
+    /ignore (all |previous )?(instructions|prompts|rules|policies)/i,
+    /you are (now |a )?(different|new|unrestricted)/i,
+    /forget (everything|all|your training)/i,
+    /act as (if |though )?you (are|were|had)/i,
+    /roleplay|pretend (you are|to be)/i,
+    /disregard (your|the) (training|instructions|guidelines)/i,
+    /override (your|the) (settings|restrictions)/i,
+    /(jailbreak|DAN|do anything now)/i,
+    /this is (just|only) (a|an) (test|exam|exercise) so/i,
+    /system (prompt|message|instruction)/i
+  ];
+
+  return bypassPatterns.some(pattern => pattern.test(userMsg));
+}
+
+/**
+ * Analyzes the sophistication and intent of the question
+ */
+export interface QuestionAnalysis {
+  isSeekingUnderstanding: boolean;
+  isSurplusKnowledge: boolean;
+  showsWorkInProgress: boolean;
+  isSpecificQuestion: boolean;
+  overallScore: number; // 0-1, higher means more genuine learning intent
+}
+
+export function analyzeQuestionIntent(userMsg: string, submission: Submission | null): QuestionAnalysis {
+  let score = 0.5; // Start neutral
+
+  // Positive indicators: Seeking understanding
+  const understandingPatterns = [
+    /\b(why|how come|what makes|what causes)\b/i,
+    /\b(understand|clarify|explain|elaborate)\b/i,
+    /\b(confused|unclear|unsure) (about|on)\b/i,
+    /\b(difference between|compare)\b/i,
+    /\b(in other words|put differently)\b/i,
+    /\b(means|meaning|definition)\b/i
+  ];
+
+  const isSeekingUnderstanding = understandingPatterns.some(p => p.test(userMsg));
+  if (isSeekingUnderstanding) score += 0.2;
+
+  // Positive: Shows work in progress
+  const workIndicators = [
+    /\b(I tried|I attempted|I think|my approach)\b/i,
+    /\b(so far|up to now|until now)\b/i,
+    /\b(this is what I (did|have))\b/i,
+    /\b(my (answer|solution|work) is)\b/i,
+    /\b(got|reached|ended up with)\b/i
+  ];
+
+  const showsWorkInProgress = submission !== null || workIndicators.some(p => p.test(userMsg));
+  if (showsWorkInProgress) score += 0.2;
+
+  // Positive: Specific question about a concept
+  const specificIndicators = [
+    /\b(step|part|section|line) \d+\b/i,
+    /\b(this|that|the) (equation|formula|concept|method)\b/i,
+    /\b(specifically|particularly)\b/i
+  ];
+
+  const isSpecificQuestion = specificIndicators.some(p => p.test(userMsg));
+  if (isSpecificQuestion) score += 0.15;
+
+  // Negative indicators: Seeking shortcuts
+  const shortcutPatterns = [
+    /\b(quick|fast|easy|simple) (way|answer|solution)\b/i,
+    /\b(shortcut|cheat|hack)\b/i,
+    /\b(without (doing|showing|explaining))\b/i
+  ];
+
+  if (shortcutPatterns.some(p => p.test(userMsg))) score -= 0.2;
+
+  // Negative: Vague or minimal effort questions
+  if (userMsg.length < 20) score -= 0.1;
+  if (/^\s*(help|idk|what|huh|\?+)\s*$/i.test(userMsg)) score -= 0.3;
+
+  // Check for genuine curiosity beyond assignment
+  const surplusKnowledgePatterns = [
+    /\b(also|additionally|furthermore)\b/i,
+    /\b(related to this|connected to)\b/i,
+    /\b(real[- ]world|practical) (application|use|example)\b/i,
+    /\b(learn more about|interested in)\b/i
+  ];
+
+  const isSurplusKnowledge = surplusKnowledgePatterns.some(p => p.test(userMsg));
+  if (isSurplusKnowledge) score += 0.15;
+
+  // Cap score between 0 and 1
+  const overallScore = Math.max(0, Math.min(1, score));
+
+  return {
+    isSeekingUnderstanding,
+    isSurplusKnowledge,
+    showsWorkInProgress,
+    isSpecificQuestion,
+    overallScore
+  };
+}
+
+/**
+ * Calculates time-based metrics for engagement analysis
+ */
+export function analyzeEngagement(
+  timeSpentOnTask: number,
+  previousSubmissions: Submission[],
+  currentSubmission: Submission | null
+): {
+  isRushing: boolean;
+  showsPersistence: boolean;
+  progressionQuality: 'improving' | 'declining' | 'stable';
+} {
+  const minReasonableTime = 60000; // 1 minute
+  const isRushing = timeSpentOnTask < minReasonableTime && previousSubmissions.length === 0;
+
+  const showsPersistence = previousSubmissions.length >= 2;
+
+  let progressionQuality: 'improving' | 'declining' | 'stable' = 'stable';
+
+  if (previousSubmissions.length >= 2) {
+    const recent = previousSubmissions.slice(-2);
+    const oldWordCount = recent[0].wordCount || 0;
+    const newWordCount = recent[1].wordCount || 0;
+
+    if (newWordCount > oldWordCount * 1.2) {
+      progressionQuality = 'improving';
+    } else if (newWordCount < oldWordCount * 0.8) {
+      progressionQuality = 'declining';
+    }
+  }
+
+  return {
+    isRushing,
+    showsPersistence,
+    progressionQuality
+  };
 }
 
 /**
@@ -197,6 +345,9 @@ export default {
   decideResponseMode,
   makeResponseDecision,
   isAskingForAnswer,
+  isPolicyBypassAttempt,
+  analyzeQuestionIntent,
+  analyzeEngagement,
   hasGenuineAttempt,
   AssignmentSchema,
   SubmissionSchema,
