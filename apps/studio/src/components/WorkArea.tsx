@@ -1,7 +1,7 @@
 import React from 'react';
 import DocEditor from './DocEditor';
-import PDFAnnotator from './PDFAnnotator';
-import Whiteboard from './Whiteboard';
+import PDFAnnotatorV2 from './PDFAnnotatorV2';
+import WhiteboardV2 from './WhiteboardV2';
 import type { WorkAreaProps, WorkTab } from '../types';
 
 const WorkArea: React.FC<WorkAreaProps> = ({
@@ -33,22 +33,22 @@ const WorkArea: React.FC<WorkAreaProps> = ({
         );
       case 'PDF':
         return (
-          <PDFAnnotator
+          <PDFAnnotatorV2
             assignment={activeAssignment}
             annotations={[]}
-            onAnnotationAdd={() => {}}
-            onAnnotationUpdate={() => {}}
-            onAnnotationDelete={() => {}}
+            onAnnotationAdd={(annotation) => console.log('Added annotation:', annotation)}
+            onAnnotationUpdate={(id, annotation) => console.log('Updated annotation:', id, annotation)}
+            onAnnotationDelete={(id) => console.log('Deleted annotation:', id)}
           />
         );
       case 'BOARD':
         return (
-          <Whiteboard
+          <WhiteboardV2
             assignment={activeAssignment}
             shapes={[]}
-            onShapeAdd={() => {}}
-            onShapeUpdate={() => {}}
-            onShapeDelete={() => {}}
+            onShapeAdd={(shape) => console.log('Added shape:', shape)}
+            onShapeUpdate={(id, shape) => console.log('Updated shape:', id, shape)}
+            onShapeDelete={(id) => console.log('Deleted shape:', id)}
           />
         );
       default:
@@ -66,6 +66,7 @@ const WorkArea: React.FC<WorkAreaProps> = ({
             onClick={() => handleTabClick(tab.key)}
             aria-selected={activeTab === tab.key}
             role="tab"
+            data-tab={tab.key}
           >
             <span className="tab-icon" role="img" aria-hidden="true">
               {tab.icon}
@@ -74,7 +75,7 @@ const WorkArea: React.FC<WorkAreaProps> = ({
           </button>
         ))}
       </div>
-      
+
       <div className="work-content" role="tabpanel">
         {renderTabContent()}
       </div>
